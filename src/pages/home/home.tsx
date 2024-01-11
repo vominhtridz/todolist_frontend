@@ -15,7 +15,7 @@ import moment from 'moment'
 interface CommonTodo  {
   todo: string,
   _id: string,
-  createdAt: string
+  createdAt: string,
 }
 
 function Home(): ReactElement {
@@ -26,10 +26,13 @@ function Home(): ReactElement {
   const [todoitem, setTodoItem] = useState<string>('');
   const [edit, setEdit] = useState<string|null>('');
   useEffect(() => {
-    GetTodo().then((res) => setToDos(res.data));
+    GetTodo().then((res) => {
+    setToDos(res.data)
+    });
   }, [todolist,edit,todoitem,deleTodo])
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(todos)
     if (todolist.trim() !== '') {
       AddToDo({todo: todolist.trim()})
       setTodolist('');
