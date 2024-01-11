@@ -1,0 +1,9 @@
+.home {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body {
+    background: rgba(0,0,0,0.1);
+}
