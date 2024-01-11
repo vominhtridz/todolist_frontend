@@ -1,6 +1,6 @@
 import axios, { AxiosResponse ,AxiosRequestConfig} from 'axios';
 
-const API = 'http://localhost:5000';
+const API = 'http://todolist-api';
 
 interface Todo {
   _id: string;
