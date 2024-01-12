@@ -1,6 +1,6 @@
 import axios, { AxiosResponse ,AxiosRequestConfig} from 'axios';
 
-const API = 'https://todolist-api-d3cv.onrender.com';
+const API = 'http://todolist-api-d3cv.onrender.com';
 
 interface Todo {
   _id: string;
