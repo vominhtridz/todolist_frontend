@@ -1,8 +1,6 @@
 import {GetTodo,DeleteTodo, AddToDo, EditToDo} from '..//..//api/api.tsx'
 import React, { ChangeEvent, useState, ReactElement, useEffect } from "react"
 import './home.css'
-import { useDispatch } from "react-redux"
-import { RemoveTodo} from "../../redux/features/counterSlice"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faPen, faX } from "@fortawesome/free-solid-svg-icons"
 import moment from 'moment'
@@ -20,7 +18,6 @@ interface CommonTodo  {
 
 function Home(): ReactElement {
   const [todos, setToDos] = useState<Array<CommonTodo>>([])
-  const dispatch = useDispatch()
   const [todolist, setTodolist] = useState<string>('');
   const [checkStateADD, setCheckStateADD] = useState<boolean>(false)
   const [deleTodo,setDeLeToDo] = useState<boolean>(false)
@@ -47,12 +44,10 @@ function Home(): ReactElement {
     setTodoItem(todo.todo)
   };
 
-  const handleRemove = (todo: CommonTodo) => {
-    DeleteTodo(todo)
-    dispatch(RemoveTodo(todo._id))
+  const handleRemove = async (todo: CommonTodo) => {
     setDeLeToDo(!deleTodo)
+   await DeleteTodo(todo)
   };
-
   const handleInputToDo = (e: ChangeEvent<HTMLInputElement>) => setTodolist(e.target.value)
   const handleToDoItem = (e: ChangeEvent<HTMLInputElement>) => setTodoItem(e.target.value)
   
@@ -75,7 +70,7 @@ function Home(): ReactElement {
             Add
           </button>
         </form>
-        <ul className="flex mt-4 flex-col">
+        {todos.length > 0 ? <ul className="flex mt-4 flex-col">
           {todos.map((todo, index) => (
             <li key={index} className="flex items-center bg-pink-300 w-full p-4 text-white mt-4">
               {edit === index.toString() ? (
@@ -95,6 +90,8 @@ function Home(): ReactElement {
             </li>
           ))}
         </ul>
+        : 
+        (<div className='p-10 text-4xl text-blue'>there is no todo-list!</div>)}
       </section>
     </div>
     </>
