@@ -22,6 +22,7 @@ function Home(): ReactElement {
   const [todos, setToDos] = useState<Array<CommonTodo>>([])
   const dispatch = useDispatch()
   const [todolist, setTodolist] = useState<string>('');
+  const [checkStateADD, setCheckStateADD] = useState<boolean>(false)
   const [deleTodo,setDeLeToDo] = useState<boolean>(false)
   const [todoitem, setTodoItem] = useState<string>('');
   const [edit, setEdit] = useState<string|null>('');
@@ -29,14 +30,16 @@ function Home(): ReactElement {
     GetTodo().then((res) => {
     setToDos(res.data)
     });
-  }, [todolist,edit,todoitem,deleTodo])
-  const handleSubmit = (e: React.FormEvent) => {
+  }, [edit,todoitem,deleTodo,checkStateADD])
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(todos)
     if (todolist.trim() !== '') {
-      AddToDo({todo: todolist.trim()})
+      await AddToDo({todo: todolist.trim()})
+      setCheckStateADD(!checkStateADD)
       setTodolist('');
     }
+
+
   };
 
   const handleEdit = (todo: CommonTodo,index:string) => {
