@@ -51,10 +51,10 @@ function Home(): ReactElement {
   const handleInputToDo = (e: ChangeEvent<HTMLInputElement>) => setTodolist(e.target.value)
   const handleToDoItem = (e: ChangeEvent<HTMLInputElement>) => setTodoItem(e.target.value)
   
-  const handleNewToDO =(todo: {todo: string, _id:string})=>{
+  const handleNewToDO = async (todo: {todo: string, _id:string})=>{
     if(todoitem == '') return;
-    EditToDo({todo: todoitem.trim(), _id: todo._id})
-    setTodoItem(''); 
+    await EditToDo({todo: todoitem.trim(), _id: todo._id})
+    setTodoItem('');
     setEdit(null); 
 
   }
